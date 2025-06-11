@@ -23,3 +23,12 @@ def test_object(setup_resources):
     """
     translator = setup_resources["translator"]
     assert translator is not None
+
+
+def test_convert_jump(setup_resources):
+    """
+    Test that we can convert the jump command to bits
+    """
+    translator = setup_resources["translator"]
+    value = translator.convert_jump("111")
+    assert value == "111"

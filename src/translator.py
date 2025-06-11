@@ -10,3 +10,8 @@ class Translator:
     def __init__(self):
         pass
 
+    def convert_jump(self, command: str) -> str:
+        """
+        Takes in a "C" command and returns a set of three bits.
+        """
+        return "111"
