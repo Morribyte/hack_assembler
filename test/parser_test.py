@@ -85,3 +85,12 @@ def test_a_command_inside_c_command(setup_resources):
     parser = setup_resources["parser"]
     assert parser.is_c_command("@100") is False
     assert parser.is_a_command("M=M+1") is False
+
+
+def test_dest(setup_resources):
+    """
+    Test that we can pull the "dest" string from a "C" command
+    """
+    parser = setup_resources["parser"]
+    value = parser.get_dest("M")
+    assert value == "M"

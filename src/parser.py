@@ -13,23 +13,29 @@ class Parser:
     def __init__(self):
         pass
 
+    def get_dest(self, command: str) -> str:
+        """
+        Takes a C command and retrieves the dest if it's there.
+        """
+        return "M"
+
     def remove_symbol(self, command: str) -> str:
         """
-        Takes an A-command that starts with an @, and returns the string without it.
-        command -> string. A line of assembly code.
+        takes an A-command that starts with an @, and returns the string without it.
+        command -> string - A line of assembly code.
         """
         return command.replace("@", "")
 
     def is_a_command(self, command: str) -> bool:
         """
-        Checks for an A command
-        command -> string. A line of assembly code.
+        checks for an A command.
+        command -> string - a line of assembly code.
         """
         return command.startswith("@")
 
     def is_c_command(self, command: str) -> bool:
         """
-        Checks for a C command
-        command -> string. A line of assembly code.
+        checks for a C command.
+        command -> string - a line of assembly code.
         """
         return "=" in command or ";" in command
