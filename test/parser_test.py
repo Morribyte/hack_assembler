@@ -135,3 +135,13 @@ def test_comp_both_equals_semicolon(setup_resources):
     value = parser.get_comp("M=M+1;JMP")
     print(value)
     assert value == "M+1"
+
+
+def test_get_jump(setup_resources):
+    """
+    Test that we're able to retrieve the jump portion of a "C" command
+    """
+    parser = setup_resources["parser"]
+    value = parser.get_jump("D;JMP")
+    print(value)
+    assert value == "JMP"
