@@ -12,3 +12,8 @@ class Parser:
     """
     def __init__(self):
         pass
+
+    def check_command(self):
+        """
+        Checks which type of command a line of code is.
+        """

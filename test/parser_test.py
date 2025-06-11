@@ -23,3 +23,12 @@ def test_creation(setup_resources):
     """
     parser = setup_resources["parser"]
     assert parser is not None
+
+
+def test_first_line(setup_resources):
+    """
+    Test that the parser can see a given argument.
+    """
+    parser = setup_resources["parser"]
+    value = parser.check_command()
+    assert value == "M=M+1"
