@@ -10,8 +10,8 @@ def setup_resources():
     """
     Sets up the parser object and yields it
     """
-    input_file =
-    parser = Parser()
+    input_file = r"F:\Programming\Hack and ASM Projects\Assembler\temp\Add.asm"
+    parser = Parser(input_file)
 
     yield {
         "parser": parser,
@@ -30,6 +30,9 @@ def test_open_file(setup_resources):
     """
     Test that the parser can open a file.
     """
+    parser = setup_resources["parser"]
+    value = parser.open_file
+    assert value is not None
 
 def test_a_command(setup_resources):
     """

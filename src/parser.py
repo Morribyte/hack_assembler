@@ -15,6 +15,8 @@ class Parser:
     def __init__(self, input_file: str | Path):
         self.input_file = Path(input_file)
 
+
+
     def get_dest(self, command: str) -> str:
         """
         takes a C command and retrieves the dest if it's there.
