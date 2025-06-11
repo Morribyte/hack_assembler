@@ -70,3 +70,12 @@ def test_is_c_command_semicolon(setup_resources):
     parser = setup_resources["parser"]
     value = parser.is_c_command("0;JMP")
     assert value is True
+
+
+def test_is_c_command_both(setup_resources):
+    """
+    Test that having both = and ;, even if it doesn't happen in practice, still returns true.
+    """
+    parser = setup_resources["parser"]
+    value = parser.is_c_command("M=M+1;JMP")
+    assert value is True
