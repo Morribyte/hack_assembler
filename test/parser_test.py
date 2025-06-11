@@ -95,3 +95,23 @@ def test_dest(setup_resources):
     value = parser.get_dest("M=M+1")
     print(value)
     assert value == "M"
+
+
+def test_dest_no_equals(setup_resources):
+    """
+    Test that when there's no destination, we retrieve an empty string.
+    """
+    parser = setup_resources["parser"]
+    value = parser.get_dest("0;JMP")
+    print(value)
+    assert value == ""
+
+
+def test_comp(setup_resources):
+    """
+    Test that we're able to grab the computation if it's present.
+    """
+    parser = setup_resources["parser"]
+    value = parser.get_comp("M=M+1")
+    print(value)
+    assert value == "M+1"
