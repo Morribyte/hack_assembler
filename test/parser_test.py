@@ -10,6 +10,7 @@ def setup_resources():
     """
     Sets up the parser object and yields it
     """
+    input_file =
     parser = Parser()
 
     yield {
@@ -24,6 +25,11 @@ def test_creation(setup_resources):
     parser = setup_resources["parser"]
     assert parser is not None
 
+
+def test_open_file(setup_resources):
+    """
+    Test that the parser can open a file.
+    """
 
 def test_a_command(setup_resources):
     """

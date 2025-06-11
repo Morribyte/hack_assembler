@@ -6,12 +6,14 @@ A-commands -> ignores @ symbols
 Labels -> Ignores (for now)
 """
 
+from pathlib import Path
+
 class Parser:
     """
     Represents an assembler parser object
     """
-    def __init__(self):
-        pass
+    def __init__(self, input_file: str | Path):
+        self.input_file = Path(input_file)
 
     def get_dest(self, command: str) -> str:
         """
@@ -34,7 +36,7 @@ class Parser:
         takes a C command and retrieves the jump.
         command -> string - A line of assembly code.
         """
-        return command.split(";")[1]
+        return command.split(";")[1] if ";" in command else ""
 
     def remove_symbol(self, command: str) -> str:
         """
