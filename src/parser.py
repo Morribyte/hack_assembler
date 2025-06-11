@@ -35,6 +35,9 @@ class Parser:
         takes a C command and retrieves the dest if it's there.
         command -> string - A line of assembly code.
         """
+        if not self.is_c_command(command):
+            return ""
+
         return command.split("=")[0] if "=" in command else ""
 
     def get_comp(self, command: str) -> str:
@@ -54,6 +57,9 @@ class Parser:
         takes a C command and retrieves the jump.
         command -> string - A line of assembly code.
         """
+        if not self.is_c_command(command):
+            return ""
+
         return command.split(";")[1] if ";" in command else ""
 
     def remove_symbol(self, command: str) -> str:
