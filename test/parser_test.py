@@ -56,7 +56,7 @@ def test_a_command_clean_symbol(setup_resources):
 
 def test_is_c_command_equals_sign(setup_resources):
     """
-    Test that we can tell if something's a C command by having an equals sign
+    Test that we can tell if something's a C command by having an equal sign
     """
     parser = setup_resources["parser"]
     value = parser.is_c_command("M=M+1")
@@ -68,5 +68,5 @@ def test_is_c_command_semicolon(setup_resources):
     Test that we can tell if something's a C command by having a semicolon
     """
     parser = setup_resources["parser"]
-    value = parser.is_a_command("0;JMP")
+    value = parser.is_c_command("0;JMP")
     assert value is True

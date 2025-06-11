@@ -32,4 +32,4 @@ class Parser:
         Checks for a C command
         command -> string. A line of assembly code.
         """
-        return "=" in command
+        return "=" in command or ";" in command
