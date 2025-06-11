@@ -28,7 +28,7 @@ class Parser:
         """
         Checks to see if there's more commands. Returns true if yes, false if no.
         """
-        return True
+        return self.current_line < len(self.lines)
 
     def get_dest(self, command: str) -> str:
         """
