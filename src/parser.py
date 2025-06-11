@@ -42,6 +42,9 @@ class Parser:
         takes a C command and retrieves the comp.
         command -> string - A line of assembly code.
         """
+        if not self.is_c_command(command):
+            return ""
+
         if "=" in command:
             command = command.split("=")[1]
         return command.split(";")[0]

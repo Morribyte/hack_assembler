@@ -196,3 +196,29 @@ def test_get_jump_no_semicolon(setup_resources):
     value = parser.get_jump("M=M+1")
     print(value)
     assert value == ""
+
+
+@pytest.mark.parametrize("assembly_list, expected_is_a, expected_is_c, expected_dest, expected_jump, expected_comp",
+[
+    ("//Testing comment",False, False, "", "", ""),
+    ("@100\n", True, False, "", "", ""),
+    ("\n", False, False, "", "", ""),
+    ("M=M+1", False, True, "M", "", "M+1"),
+    ("@sum", True, False, "", "", ""),
+    ("MD=A", False, True, "MD", "", "A"),
+    ("D;JGT", False, True, "", "JGT", "D"),
+    ("0;JMP", False, True, "", "JMP", "0"),
+])
+def test_full(setup_resources, assembly_list, expected_is_a, expected_is_c, expected_dest, expected_jump, expected_comp):
+    """
+    Test multiple parser methods to ensure correct output per command type.
+    """
+    parser = setup_resources["parser"]
+    command = assembly_list.strip()  # Strip newlines & excess spaces before parsing
+
+    print(f"Current item: {assembly_list} | expected_is_a: {expected_is_a} | expected_is_c: {expected_is_c} | expected_dest: {expected_dest} | expected jump: {expected_jump} | expected_comp: {expected_comp}")
+    assert parser.is_a_command(command) == expected_is_a
+    assert parser.is_c_command(command) == expected_is_c
+    assert parser.get_dest(command) == expected_dest
+    assert parser.get_jump(command) == expected_jump
+    assert parser.get_comp(command) == expected_comp
