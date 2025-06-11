@@ -27,3 +27,9 @@ class Parser:
         """
         return command.startswith("@")
 
+    def is_c_command(self, command: str) -> bool:
+        """
+        Checks for a C command
+        command -> string. A line of assembly code.
+        """
+        return "=" in command

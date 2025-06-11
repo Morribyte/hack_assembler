@@ -60,4 +60,4 @@ def test_is_c_command(setup_resources):
     """
     parser = setup_resources["parser"]
     value = parser.is_c_command("M=M+1")
-    assert value == "M=M+1"
+    assert value is True
