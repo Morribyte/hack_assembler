@@ -19,7 +19,13 @@ class Parser:
         """
         return command.split("=")[0] if "=" in command else ""
 
-
+    def get_comp(self, command: str) -> str:
+        """
+        Takes a C command and retrieves the comp.
+        """
+        if "=" in command:
+            command = command.split("=")[1]
+        return command
     def remove_symbol(self, command: str) -> str:
         """
         takes an A-command that starts with an @, and returns the string without it.
