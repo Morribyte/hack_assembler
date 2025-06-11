@@ -115,3 +115,13 @@ def test_comp(setup_resources):
     value = parser.get_comp("M=M+1")
     print(value)
     assert value == "M+1"
+
+
+def test_comp_no_equals(setup_resources):
+    """
+    Test that we're able to grab the computation even without an equals sign (e.g., for a jump)
+    """
+    parser = setup_resources["parser"]
+    value = parser.get_comp("D;JMP")
+    print(value)
+    assert value == "D"

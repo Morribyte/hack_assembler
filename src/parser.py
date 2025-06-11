@@ -15,7 +15,8 @@ class Parser:
 
     def get_dest(self, command: str) -> str:
         """
-        Takes a C command and retrieves the dest if it's there.
+        takes a C command and retrieves the dest if it's there.
+        command -> string - A line of assembly code.
         """
         return command.split("=")[0] if "=" in command else ""
 
@@ -26,6 +27,7 @@ class Parser:
         if "=" in command:
             command = command.split("=")[1]
         return command
+
     def remove_symbol(self, command: str) -> str:
         """
         takes an A-command that starts with an @, and returns the string without it.
