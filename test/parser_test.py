@@ -41,9 +41,9 @@ def test_advance(setup_resources):
     Test that parser.advance adds increments the line by 1.
     """
     parser = setup_resources["parser"]
-    print(parser.current_line)
+    print(f"Current line: {parser.current_line}")
     parser.advance()
-    print(parser.current_line)
+    print(f"Current line: {parser.current_line}")
     assert parser.current_line == 1
 
 

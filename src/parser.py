@@ -18,6 +18,11 @@ class Parser:
         with open(self.input_file, "r") as file:
             self.lines: list[str] = [line.strip() for line in file.readlines()]
 
+    def advance(self):
+        """
+        Advances the self.current_line count by 1.
+        """
+        self.current_line = self.current_line + 1
 
     def get_dest(self, command: str) -> str:
         """
