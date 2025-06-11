@@ -52,3 +52,12 @@ def test_a_command_clean_symbol(setup_resources):
     value = parser.remove_symbol(precleaned_value)
     print(value)
     assert value == "sum"
+
+
+def test_is_c_command(setup_resources):
+    """
+    Test that when we're given a c command, our parser can recognize it.
+    """
+    parser = setup_resources["parser"]
+    value = parser.is_c_command("M=M+1")
+    assert value == "M=M+1"

@@ -22,7 +22,8 @@ class Parser:
 
     def is_a_command(self, command: str) -> bool:
         """
-        Checks which type of command a line of code is.
+        Checks for an A command
         command -> string. A line of assembly code.
         """
         return command.startswith("@")
+
