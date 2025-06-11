@@ -58,10 +58,13 @@ def run_parser(lines: list[str]):
     return lines
 
 
-def write_to_file(translated_file: list[str]):
+def write_to_file(file_name: str, translated_file: list[str]):
     """
     Writes a translated list to a file, line by line.
     """
+    with open(f"{file_name}.hack", "w", encoding="utf-8") as file:
+        file.writelines(f"{line}\n" for line in translated_file)
+
 
 def main():
     """
@@ -72,14 +75,22 @@ def main():
 
     args = parser.parse_args()
     file_path: Path = Path(args.file if args.file else get_file())
-    print(f"Current file path: {file_path}")
+    file_name: str = file_path.stem
 
-    print(file_path.name)
+    print(f"Current file path: {file_path}")
+    print(f"Current file name: {file_path.stem}")
+
+
     open_file = read_file(file_path)
+
+    print(f"Translating file...")
+
     translated_file = run_parser(open_file)
+
+    print(f"Translation complete!")
     print(translated_file)
 
-    write_to_file(translated_file)
+    write_to_file(file_name, translated_file)
 
 if __name__ == "__main__":
     main()
