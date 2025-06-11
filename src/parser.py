@@ -17,3 +17,4 @@ class Parser:
         """
         Checks which type of command a line of code is.
         """
+        return "M=M+1"
