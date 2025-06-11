@@ -25,10 +25,10 @@ def test_creation(setup_resources):
     assert parser is not None
 
 
-def test_first_line(setup_resources):
+def test_a_command(setup_resources):
     """
-    Test that the parser can see a given argument.
+    Test that the parser recognizes when something is an A-type command.
     """
     parser = setup_resources["parser"]
-    value = parser.check_command()
-    assert value == "M=M+1"
+    assert parser.is_a_command("@100")
+
