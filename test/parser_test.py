@@ -145,3 +145,13 @@ def test_get_jump(setup_resources):
     value = parser.get_jump("D;JMP")
     print(value)
     assert value == "JMP"
+
+
+def test_get_jump_no_semicolon(setup_resources):
+    """
+    Test that we retrieve an empty string when there's no jump command (e.g., there's no ";")
+    """
+    parser = setup_resources["parser"]
+    value = parser.get_jump("M=M+1")
+    print(value)
+    assert value == ""
