@@ -22,11 +22,19 @@ class Parser:
 
     def get_comp(self, command: str) -> str:
         """
-        Takes a C command and retrieves the comp.
+        takes a C command and retrieves the comp.
+        command -> string - A line of assembly code.
         """
         if "=" in command:
             command = command.split("=")[1]
         return command.split(";")[0]
+
+    def get_jump(self, command: str) -> str:
+        """
+        takes a C command and retrieves the jump.
+        command -> string - A line of assembly code.
+        """
+        return command.split(";")[1]
 
     def remove_symbol(self, command: str) -> str:
         """
