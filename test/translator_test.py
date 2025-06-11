@@ -47,5 +47,8 @@ def test_convert_jump(setup_resources):
 
 
 @pytest.mark.parametrize("mnemonic, expected_binary", jump_dict.items())
-def test_jump_lookup(mnemonic, expected_binary):
-    assert jump_dict.get(mnemonic) == expected_binary
+def test_jump_lookup(setup_resources, mnemonic, expected_binary):
+    translator = setup_resources["translator"]
+    assert translator.convert_jump(mnemonic) == expected_binary
+
+
