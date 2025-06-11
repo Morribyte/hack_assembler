@@ -125,3 +125,13 @@ def test_comp_no_equals(setup_resources):
     value = parser.get_comp("D;JMP")
     print(value)
     assert value == "D"
+
+
+def test_comp_both_equals_semicolon(setup_resources):
+    """
+    Test that we're able to grab the computation even if we have both (even if it doesn't happen in practice)
+    """
+    parser = setup_resources["parser"]
+    value = parser.get_comp("M=M+1;JMP")
+    print(value)
+    assert value == "M+1"

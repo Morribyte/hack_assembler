@@ -26,7 +26,7 @@ class Parser:
         """
         if "=" in command:
             command = command.split("=")[1]
-        return command
+        return command.split(";")[0]
 
     def remove_symbol(self, command: str) -> str:
         """
