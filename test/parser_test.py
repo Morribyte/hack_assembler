@@ -32,3 +32,10 @@ def test_a_command(setup_resources):
     parser = setup_resources["parser"]
     assert parser.is_a_command("@100")
 
+
+def test_not_a_command(setup_resources):
+    """
+    Test that the parser successfully recognizes when something isn't an A command.
+    """
+    parser = setup_resources["parser"]
+    assert parser.is_a_command("D=A") is False
