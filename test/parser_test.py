@@ -39,3 +39,16 @@ def test_not_a_command(setup_resources):
     """
     parser = setup_resources["parser"]
     assert parser.is_a_command("D=A") is False
+
+
+def test_a_command_clean_symbol(setup_resources):
+    """
+    Test that the parser, when fed an A-command, will return just a string without the @ sign.
+    """
+    parser = setup_resources["parser"]
+    precleaned_value: str = "@sum"
+    print(precleaned_value)
+
+    value = parser.remove_symbol(precleaned_value)
+    print(value)
+    assert value == "sum"

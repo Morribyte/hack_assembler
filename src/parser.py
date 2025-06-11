@@ -13,6 +13,13 @@ class Parser:
     def __init__(self):
         pass
 
+    def remove_symbol(self, command: str) -> str:
+        """
+        Takes an A-command that starts with an @, and returns the string without it.
+        command -> string. A line of assembly code.
+        """
+        return command.replace("@", "")
+
     def is_a_command(self, command: str) -> bool:
         """
         Checks which type of command a line of code is.
