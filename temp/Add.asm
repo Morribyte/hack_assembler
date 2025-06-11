@@ -1,10 +1,10 @@
 // This file is part of www.nand2tetris.org
-// and the book "The Elements of Computing Systems"
+// and the book The Elements of Computing Systems
 // by Nisan and Schocken, MIT Press.
 
 // Computes R0 = 2 + 3  (R0 refers to RAM[0])
 
-@2
+@2   // by Nisan and Schocken, MIT Press.
 D=A
 @3
 D=D+A

@@ -12,11 +12,8 @@ class Parser:
     """
     Represents an assembler parser object
     """
-    def __init__(self, input_file: str | Path):
-        self.input_file: Path = Path(input_file)
+    def __init__(self):
         self.current_line: int = 0
-        with open(self.input_file, "r") as file:
-            self.lines: list[str] = [line.strip() for line in file.readlines()]
 
     def advance(self):
         """
@@ -24,11 +21,6 @@ class Parser:
         """
         self.current_line = self.current_line + 1
 
-    def has_more_commands(self):
-        """
-        Checks to see if there's more commands. Returns true if yes, false if no.
-        """
-        return self.current_line < len(self.lines)
 
     def get_dest(self, command: str) -> str:
         """
@@ -82,3 +74,11 @@ class Parser:
         command -> string - a line of assembly code.
         """
         return "=" in command or ";" in command
+
+    def clean_line(self, command: str) -> str | None:
+        """
+        Cleans a line of whitespace and comments. Returns None if the line is only a comment.
+        """
+        command, _, _ = command.partition("//")
+        cleaned = command.strip()
+        return cleaned if cleaned else None  # Return None if nothing remains

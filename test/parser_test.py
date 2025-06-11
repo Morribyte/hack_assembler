@@ -11,7 +11,7 @@ def setup_resources():
     Sets up the parser object and yields it
     """
     input_file = r"F:\Programming\Hack and ASM Projects\Assembler\temp\Add.asm"
-    parser = Parser(input_file)
+    parser = Parser()
 
     yield {
         "parser": parser,
@@ -26,16 +26,6 @@ def test_creation(setup_resources):
     assert parser is not None
 
 
-def test_open_file(setup_resources):
-    """
-    Test that the parser can open a file and it is stored as a list.
-    """
-    parser = setup_resources["parser"]
-    value = parser.lines
-    print(parser.lines)
-    assert value is not None
-
-
 def test_advance(setup_resources):
     """
     Test that parser.advance adds increments the line by 1.
@@ -46,25 +36,6 @@ def test_advance(setup_resources):
     print(f"Current line: {parser.current_line}")
     assert parser.current_line == 1
 
-
-def test_has_more_commands(setup_resources):
-    """
-    Checks to see if the input list has more commands.
-    """
-    parser = setup_resources["parser"]
-    has_more_lines = parser.has_more_commands()
-    assert has_more_lines is True
-
-
-def test_has_no_more_commands(setup_resources):
-    """
-    Checks to see if the input list doesn't have more commands.
-    """
-    parser = setup_resources["parser"]
-    parser.current_line = 100
-
-    has_more_lines = parser.has_more_commands()
-    assert has_more_lines is False
 
 def test_a_command(setup_resources):
     """
@@ -222,3 +193,13 @@ def test_full(setup_resources, assembly_list, expected_is_a, expected_is_c, expe
     assert parser.get_dest(command) == expected_dest
     assert parser.get_jump(command) == expected_jump
     assert parser.get_comp(command) == expected_comp
+
+
+def test_clean_line(setup_resources):
+    """
+    Test that a line cleans properly
+    """
+    line = '// Computes R0 = 2 + 3  (R0 refers to RAM[0])'
+    parser = setup_resources["parser"]
+    cleaned_line = parser.clean_line(line)
+    print(cleaned_line)
