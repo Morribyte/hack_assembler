@@ -28,7 +28,26 @@ dest_dict: dict = {
             "AD": "110",
             "AMD": "111",
         }
-
+comp_dict: dict = {
+    "0": "101010",
+    "1": "111111",
+    "-1": "111010",
+    "D": "001100",
+    "A": "110001",
+    "!D": "001101",
+    "!A": "110001",
+    "-D": "001111",
+    "-A": "110011",
+    "D+1": "011111",
+    "A+1": "110111",
+    "D-1": "001110",
+    "A-1": "110010",
+    "D+A": "000010",
+    "D-A": "010011",
+    "A-D": "000111",
+    "D&A": "000000",
+    "D|A": "010101",
+}
 
 @pytest.fixture
 def setup_resources():
@@ -62,6 +81,9 @@ def test_convert_jump(setup_resources):
 
 @pytest.mark.parametrize("mnemonic, expected_binary", jump_dict.items())
 def test_jump_lookup(setup_resources, mnemonic, expected_binary):
+    """
+    Test the jump lookup through all values
+    """
     translator = setup_resources["translator"]
     assert translator.convert_jump(mnemonic) == expected_binary
 
@@ -76,6 +98,25 @@ def test_convert_dest(setup_resources):
 
 @pytest.mark.parametrize("mnemonic, expected_binary", dest_dict.items())
 def test_dest_lookup(setup_resources, mnemonic, expected_binary):
+    """
+    Test the dest lookup through all values
+    """
     translator = setup_resources["translator"]
     assert translator.convert_dest(mnemonic) == expected_binary
 
+
+def test_convert_comp(setup_resources):
+    """
+    Test that we can convert our comp to bits
+    """
+    translator = setup_resources["translator"]
+    assert translator.convert_comp("!D") == "001101"
+
+
+@pytest.mark.parametrize("mnemonic, expected_binary", comp_dict.items())
+def test_comp_lookup(setup_resources, mnemonic, expected_binary):
+    """
+    Test the comp lookup through all values
+    """
+    translator = setup_resources["translator"]
+    assert translator.convert_comp(mnemonic) == expected_binary

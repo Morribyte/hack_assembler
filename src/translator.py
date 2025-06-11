@@ -28,7 +28,26 @@ class Translator:
             "AD": "110",
             "AMD": "111",
         }
-
+        self.comp: dict = {
+            "0": "101010",
+            "1": "111111",
+            "-1": "111010",
+            "D": "001100",
+            "A": "110001",
+            "!D": "001101",
+            "!A": "110001",
+            "-D": "001111",
+            "-A": "110011",
+            "D+1": "011111",
+            "A+1": "110111",
+            "D-1": "001110",
+            "A-1": "110010",
+            "D+A": "000010",
+            "D-A": "010011",
+            "A-D": "000111",
+            "D&A": "000000",
+            "D|A": "010101",
+        }
     def convert_jump(self, command: str) -> str:
         """
         Takes in a "C" command and returns a set of three bits.
@@ -40,3 +59,9 @@ class Translator:
         Takes in a "C" command and returns a set of three bits.
         """
         return self.dest.get(command)
+
+    def convert_comp(self, command: str) -> str:
+        """
+        Takes in a "C" command and returns a set of six bits.
+        """
+        return self.comp.get(command)
