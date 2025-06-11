@@ -17,7 +17,7 @@ class Parser:
         """
         Takes a C command and retrieves the dest if it's there.
         """
-        return "M"
+        return command.split("=")[0]
 
     def remove_symbol(self, command: str) -> str:
         """

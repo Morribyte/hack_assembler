@@ -92,5 +92,6 @@ def test_dest(setup_resources):
     Test that we can pull the "dest" string from a "C" command
     """
     parser = setup_resources["parser"]
-    value = parser.get_dest("M")
+    value = parser.get_dest("M=M+1")
+    print(value)
     assert value == "M"
