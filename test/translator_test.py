@@ -85,6 +85,7 @@ def test_jump_lookup(setup_resources, mnemonic, expected_binary):
     Test the jump lookup through all values
     """
     translator = setup_resources["translator"]
+    print(mnemonic + ":" + expected_binary)
     assert translator.convert_jump(mnemonic) == expected_binary
 
 
@@ -102,6 +103,7 @@ def test_dest_lookup(setup_resources, mnemonic, expected_binary):
     Test the dest lookup through all values
     """
     translator = setup_resources["translator"]
+    print(mnemonic + ":" + expected_binary)
     assert translator.convert_dest(mnemonic) == expected_binary
 
 
@@ -119,4 +121,5 @@ def test_comp_lookup(setup_resources, mnemonic, expected_binary):
     Test the comp lookup through all values
     """
     translator = setup_resources["translator"]
+    print(mnemonic + ":" + expected_binary)
     assert translator.convert_comp(mnemonic) == expected_binary

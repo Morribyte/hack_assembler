@@ -116,7 +116,7 @@ def test_dest_no_equals(setup_resources):
     parser = setup_resources["parser"]
     value = parser.get_dest("0;JMP")
     print(value)
-    assert value == ""
+    assert value == "null"
 
 
 def test_comp(setup_resources):
@@ -166,7 +166,7 @@ def test_get_jump_no_semicolon(setup_resources):
     parser = setup_resources["parser"]
     value = parser.get_jump("M=M+1")
     print(value)
-    assert value == ""
+    assert value == "null"
 
 
 @pytest.mark.parametrize("assembly_list, expected_is_a, expected_is_c, expected_dest, expected_jump, expected_comp",
@@ -174,11 +174,11 @@ def test_get_jump_no_semicolon(setup_resources):
     ("//Testing comment",False, False, "", "", ""),
     ("@100\n", True, False, "", "", ""),
     ("\n", False, False, "", "", ""),
-    ("M=M+1", False, True, "M", "", "M+1"),
+    ("M=M+1", False, True, "M", "null", "M+1"),
     ("@sum", True, False, "", "", ""),
-    ("MD=A", False, True, "MD", "", "A"),
-    ("D;JGT", False, True, "", "JGT", "D"),
-    ("0;JMP", False, True, "", "JMP", "0"),
+    ("MD=A", False, True, "MD", "null", "A"),
+    ("D;JGT", False, True, "null", "JGT", "D"),
+    ("0;JMP", False, True, "null", "JMP", "0"),
 ])
 def test_full(setup_resources, assembly_list, expected_is_a, expected_is_c, expected_dest, expected_jump, expected_comp):
     """

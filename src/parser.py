@@ -30,7 +30,7 @@ class Parser:
         if not self.is_c_command(command):
             return ""
 
-        return command.split("=")[0] if "=" in command else ""
+        return command.split("=")[0] if "=" in command else "null"
 
     def get_comp(self, command: str) -> str:
         """
@@ -52,7 +52,7 @@ class Parser:
         if not self.is_c_command(command):
             return ""
 
-        return command.split(";")[1] if ";" in command else ""
+        return command.split(";")[1] if ";" in command else "null"
 
     def remove_symbol(self, command: str) -> str:
         """

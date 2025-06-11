@@ -8,6 +8,7 @@ from src.parser import Parser
 from src.translator import Translator
 
 parser = Parser()
+translator = Translator()
 
 def get_file():
     """
@@ -18,15 +19,6 @@ def get_file():
         if Path(file_path).exists():
             return file_path
         print("File not found. Try again.")
-
-
-def get_parser():
-    """
-    Instantiates and returns an instance of the parser using the file_path.
-    """
-
-    print("Started parser.")
-    return parser
 
 
 def read_file(file_path):
@@ -40,18 +32,36 @@ def run_parser(lines: list[str]):
     """
     Runs the parser
     """
-    parser = get_parser()
-
     for index, line in enumerate(lines):
         if parser.is_a_command(line):
             lines[index] = parser.remove_symbol(line)
             print(f"[A command found]: Old value: {line} | New value: {lines[index]}")
+            lines[index] = str(bin(int(lines[index]))[2:].zfill(16))
+            print(f"{lines[index]} added to list")
         if parser.is_c_command(line):
             dest = parser.get_dest(line)
             comp = parser.get_comp(line)
             jump = parser.get_jump(line)
             print(f"[C command found]: Comp: {comp} | Dest: {dest} | Jump: {jump}")
 
+            convert_dest = translator.convert_dest(dest)
+            convert_comp = translator.convert_comp(comp)
+            convert_jump = translator.convert_jump(jump)
+
+            print(f"[Converted C]: Comp: {convert_comp} | Dest: {convert_dest} | Jump: {convert_jump}")
+
+            # Use hard-coded value 111 since the first three bits in a c-instruction will always be 1.
+            translated_instruction = "111" + convert_dest + convert_comp + convert_jump
+            print(f"Translated instruction {translated_instruction} added to list")
+
+            lines[index] = translated_instruction
+    return lines
+
+
+def write_to_file(translated_file: list[str]):
+    """
+    Writes a translated list to a file, line by line.
+    """
 
 def main():
     """
@@ -61,11 +71,15 @@ def main():
     parser.add_argument("file", nargs="?", help="Assembles the given file into a .hack file.")
 
     args = parser.parse_args()
-    file_path = args.file if args.file else get_file()
+    file_path: Path = Path(args.file if args.file else get_file())
     print(f"Current file path: {file_path}")
 
+    print(file_path.name)
     open_file = read_file(file_path)
+    translated_file = run_parser(open_file)
+    print(translated_file)
 
+    write_to_file(translated_file)
 
 if __name__ == "__main__":
     main()
