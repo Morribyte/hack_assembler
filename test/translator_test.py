@@ -66,17 +66,16 @@ def test_jump_lookup(setup_resources, mnemonic, expected_binary):
     assert translator.convert_jump(mnemonic) == expected_binary
 
 
-def test_no_jump(setup_resources):
-    """
-    Test that we return a null when there's no jump command.
-    """
-    translator = setup_resources["translator"]
-    assert translator.convert_jump("null") == "000"
-
-
 def test_convert_dest(setup_resources):
     """
     Test that our destination field converts properly
     """
     translator = setup_resources["translator"]
     assert translator.convert_dest("M") == "001"
+
+
+@pytest.mark.parametrize("mnemonic, expected_binary", dest_dict.items())
+def test_dest_lookup(setup_resources, mnemonic, expected_binary):
+    translator = setup_resources["translator"]
+    assert translator.convert_dest(mnemonic) == expected_binary
+
