@@ -28,11 +28,25 @@ def test_creation(setup_resources):
 
 def test_open_file(setup_resources):
     """
-    Test that the parser can open a file.
+    Test that the parser can open a file and it is stored as a list.
     """
     parser = setup_resources["parser"]
-    value = parser.open_file
+    value = parser.lines
+    print(parser.lines)
     assert value is not None
+
+
+def test_advance(setup_resources):
+    """
+    Test that parser.advance adds increments the line by 1.
+    """
+    parser = setup_resources["parser"]
+    print(parser.current_line)
+    parser.advance()
+    print(parser.current_line)
+    assert parser.current_line == 1
+
+
 
 def test_a_command(setup_resources):
     """

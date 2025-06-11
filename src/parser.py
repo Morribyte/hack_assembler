@@ -13,8 +13,10 @@ class Parser:
     Represents an assembler parser object
     """
     def __init__(self, input_file: str | Path):
-        self.input_file = Path(input_file)
-
+        self.input_file: Path = Path(input_file)
+        self.current_line: int = 0
+        with open(self.input_file, "r") as file:
+            self.lines: list[str] = [line.strip() for line in file.readlines()]
 
 
     def get_dest(self, command: str) -> str:
