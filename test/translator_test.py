@@ -18,6 +18,18 @@ jump_dict: dict = {
             "JMP": "111",
         }
 
+dest_dict: dict = {
+            "null": "000",
+            "M": "001",
+            "D": "010",
+            "MD": "011",
+            "A": "100",
+            "AM": "101",
+            "AD": "110",
+            "AMD": "111",
+        }
+
+
 @pytest.fixture
 def setup_resources():
     """
@@ -59,5 +71,12 @@ def test_no_jump(setup_resources):
     Test that we return a null when there's no jump command.
     """
     translator = setup_resources["translator"]
-    value = translator.convert_jump("null")
-    assert value == "000"
+    assert translator.convert_jump("null") == "000"
+
+
+def test_convert_dest(setup_resources):
+    """
+    Test that our destination field converts properly
+    """
+    translator = setup_resources["translator"]
+    assert translator.convert_dest("M") == "001"

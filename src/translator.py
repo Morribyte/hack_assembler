@@ -18,9 +18,25 @@ class Translator:
             "JLE": "110",
             "JMP": "111",
         }
+        self.dest: dict = {
+            "null": "000",
+            "M": "001",
+            "D": "010",
+            "MD": "011",
+            "A": "100",
+            "AM": "101",
+            "AD": "110",
+            "AMD": "111",
+        }
 
     def convert_jump(self, command: str) -> str:
         """
         Takes in a "C" command and returns a set of three bits.
         """
         return self.jump.get(command)
+
+    def convert_dest(self, command: str) -> str:
+        """
+        Takes in a "C" command and returns a set of three bits.
+        """
+        return self.dest.get(command)
