@@ -1,6 +1,8 @@
 """
 Tests the translator module for the assembler.
 """
+from glob import translate
+
 from src.translator import Translator
 
 import pytest
@@ -52,3 +54,10 @@ def test_jump_lookup(setup_resources, mnemonic, expected_binary):
     assert translator.convert_jump(mnemonic) == expected_binary
 
 
+def test_no_jump(setup_resources):
+    """
+    Test that we return a null when there's no jump command.
+    """
+    translator = setup_resources["translator"]
+    value = translator.convert_jump("null")
+    assert value == "000"
