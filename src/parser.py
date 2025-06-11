@@ -19,6 +19,7 @@ class Parser:
         """
         return command.split("=")[0] if "=" in command else ""
 
+
     def remove_symbol(self, command: str) -> str:
         """
         takes an A-command that starts with an @, and returns the string without it.
