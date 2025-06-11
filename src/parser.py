@@ -24,6 +24,12 @@ class Parser:
         """
         self.current_line = self.current_line + 1
 
+    def has_more_commands(self):
+        """
+        Checks to see if there's more commands. Returns true if yes, false if no.
+        """
+        return True
+
     def get_dest(self, command: str) -> str:
         """
         takes a C command and retrieves the dest if it's there.

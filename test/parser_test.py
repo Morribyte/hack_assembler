@@ -47,6 +47,15 @@ def test_advance(setup_resources):
     assert parser.current_line == 1
 
 
+def test_has_more_commands(setup_resources):
+    """
+    Checks to see if the input list has more commands.
+    """
+    parser = setup_resources["parser"]
+    has_more_lines = parser.has_more_commands()
+    assert has_more_lines is True
+
+
 
 def test_a_command(setup_resources):
     """
