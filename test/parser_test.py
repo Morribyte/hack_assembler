@@ -61,6 +61,8 @@ def test_has_no_more_commands(setup_resources):
     Checks to see if the input list doesn't have more commands.
     """
     parser = setup_resources["parser"]
+    parser.current_line = 100
+
     has_more_lines = parser.has_more_commands()
     assert has_more_lines is False
 
