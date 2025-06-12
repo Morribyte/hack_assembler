@@ -28,9 +28,15 @@ def read_file(file_path):
     return lines
 
 
-def run_parser(lines: list[str]):
+def run_first_loop(lines: list[str]):
     """
-    Runs the parser
+
+    """
+
+
+def run_second_loop(lines: list[str]):
+    """
+    Finally translates everything to binary code.
     """
     for index, line in enumerate(lines):
         if parser.is_a_command(line):
@@ -51,7 +57,7 @@ def run_parser(lines: list[str]):
             print(f"[Converted C]: Comp: {convert_comp} | Dest: {convert_dest} | Jump: {convert_jump}")
 
             # Use hard-coded value 111 since the first three bits in a c-instruction will always be 1.
-            translated_instruction = "111" + convert_dest + convert_comp + convert_jump
+            translated_instruction = "111" + convert_comp + convert_dest + convert_jump
             print(f"Translated instruction {translated_instruction} added to list")
 
             lines[index] = translated_instruction
@@ -62,7 +68,7 @@ def write_to_file(file_name: str, translated_file: list[str]):
     """
     Writes a translated list to a file, line by line.
     """
-    with open(f"{file_name}.hack", "w", encoding="utf-8") as file:
+    with open(f"output/{file_name}.hack", "w", encoding="utf-8") as file:
         file.writelines(f"{line}\n" for line in translated_file)
 
 
@@ -85,7 +91,7 @@ def main():
 
     print(f"Translating file...")
 
-    translated_file = run_parser(open_file)
+    translated_file = run_second_loop(open_file)
 
     print(f"Translation complete!")
     print(translated_file)
