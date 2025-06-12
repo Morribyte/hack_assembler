@@ -54,14 +54,17 @@ def run_first_loop(lines: list[str]):
             print(f"Extracted label: {extracted_label}")
             print(f"Address for symbol table: {SymbolTable.program_counter}")
             symbol_table.add_entry(extracted_label, SymbolTable.program_counter)
-            del lines[index]
+            print(lines[index])
+            print(f"New lines: {lines[index]}")
+            continue
         symbol_table.increment_pc()
         print(f"Current PC: {SymbolTable.program_counter}")
-    print("\n-----------FINAL LIST------------")
-    print(f"{lines}\n")
+    # print("\n-----------FINAL LIST------------")
+    # print(f"{lines}\n")
     print("-----------SYMBOL TABLE------------")
     print(f"{SymbolTable.symbol_table}\n")
-
+    lines = [line for line in lines if not line.startswith("(")]
+    return lines
 
 def run_second_loop(lines: list[str]):
     """
@@ -69,11 +72,21 @@ def run_second_loop(lines: list[str]):
     """
     print("------------STARTING SECOND PASS------------")
     for index, line in enumerate(lines):
+        print(f"Current index: {index}")
+
         if parser.is_a_command(line):
             lines[index] = parser.remove_symbol(line)
             print(f"[A command found]: Old value: {line} | New value: {lines[index]}")
-            if line.isdigit():
+            if lines[index].isdigit():
                 lines[index] = str(bin(int(lines[index]))[2:].zfill(16))
+            else:
+                address = symbol_table.get_address(lines[index])
+                print(f"Address: {address}")
+                if address is None and not lines[index].isdigit():
+                    print(f"Address {address} found -- adding to list")
+                    address = symbol_table.add_entry(lines[index])
+                lines[index] = str(bin(int(address))[2:].zfill(16))
+
             print(f"{lines[index]} added to list\n")
         if parser.is_c_command(line):
             dest = parser.get_dest(line)
@@ -108,10 +121,10 @@ def main():
     """
     Main function
     """
-    parser = argparse.ArgumentParser(description="HACK Assembler")
-    parser.add_argument("file", nargs="?", help="Assembles the given file into a .hack file.")
+    parse = argparse.ArgumentParser(description="HACK Assembler")
+    parse.add_argument("file", nargs="?", help="Assembles the given file into a .hack file.")
 
-    args = parser.parse_args()
+    args = parse.parse_args()
     file_path: Path = Path(args.file if args.file else get_file())
     file_name: str = file_path.stem
 
@@ -123,14 +136,11 @@ def main():
 
     print(f"Translating file...\n")
 
-    run_first_loop(open_file)
-    translated_file = run_second_loop(open_file)
+    first_loop = run_first_loop(open_file)
+    translated_file = run_second_loop(first_loop)
     print(f"Stripping translated file of any whitespace...\n")
     translated_file = [line.strip() for line in translated_file]
-
     print(f"Translation complete!\n")
-    print("------------BINARY LIST------------")
-    print(translated_file)
 
     write_to_file(file_name, translated_file)
 
