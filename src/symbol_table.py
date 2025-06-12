@@ -22,13 +22,17 @@ class SymbolTable:
     def __init__(self):
         pass
 
-    def add_entry(self, symbol: str) -> str:
+    def add_entry(self, symbol: str, pc: int = None) -> str:
         """
         Adds a symbol entry to the table starting from RAM[16]
+        pc -> Program counter, which tells the program which loop we're on. If program counter is passed, it's loop 1.
         """
-        if symbol not in SymbolTable.symbol_table:
-            SymbolTable.symbol_table[symbol] = str(SymbolTable.next_available_ram)
-            SymbolTable.next_available_ram += 1
+        if pc is not None:
+            SymbolTable.symbol_table[symbol] = str(pc)
+        else:
+            if symbol not in SymbolTable.symbol_table:
+                SymbolTable.symbol_table[symbol] = str(SymbolTable.next_available_ram)
+                SymbolTable.next_available_ram += 1
         return SymbolTable.symbol_table[symbol]
 
     def get_address(self, symbol: str) -> str:

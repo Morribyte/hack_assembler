@@ -212,3 +212,13 @@ def test_l_command(setup_resources):
     parser = setup_resources["parser"]
     assert parser.is_l_command("(LOOP)")
     assert not parser.is_l_command("@LOOP")
+
+
+def test_l_command_strip(setup_resources):
+    """
+    Test that we can read "L" commands properly
+    """
+    parser = setup_resources["parser"]
+    value = parser.extract_label("(LOOP)")
+    print(value)
+    assert value == "LOOP"

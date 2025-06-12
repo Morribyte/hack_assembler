@@ -46,9 +46,15 @@ def run_first_loop(lines: list[str]):
         print(line)
         if parser.is_l_command(line):
             print("L command found.")
-
+            extracted_label: str = parser.extract_label(line)
+            print(f"Extracted label: {extracted_label}")
+            print(f"Address for symbol table: {SymbolTable.program_counter}")
+            symbol_table.add_entry()
         symbol_table.increment_pc()
+
         print(f"PC: {SymbolTable.program_counter}")
+    print(lines)
+    print(SymbolTable.symbol_table)
 
 
 

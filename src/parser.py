@@ -61,6 +61,10 @@ class Parser:
         """
         return command.replace("@", "")
 
+    def extract_label(self, command: str) -> str:
+        """Returns the label name by stripping parentheses."""
+        return command.strip("()")
+
     def is_a_command(self, command: str) -> bool:
         """
         checks for an A command.

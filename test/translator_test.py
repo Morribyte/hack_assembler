@@ -3,6 +3,7 @@ Tests the translator module for the assembler.
 """
 from glob import translate
 
+from src.symbol_table import SymbolTable
 from src.translator import Translator
 
 import pytest
@@ -114,3 +115,4 @@ def test_comp_lookup(setup_resources, mnemonic, expected_binary):
     translator = setup_resources["translator"]
     print(mnemonic + ":" + expected_binary)
     assert translator.convert_comp(mnemonic) == expected_binary
+

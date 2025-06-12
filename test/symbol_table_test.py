@@ -72,3 +72,35 @@ def test_automated_incrementing(setup_resources):
         if SymbolTable.program_counter % 1000 == 0:
             print(f"Program counter: {SymbolTable.program_counter}")
     assert SymbolTable.program_counter == 30000
+
+
+def test_pc_symbol_incrementing(setup_resources):
+    """
+    Test that when we pass PC, it correctly adds the symbol given
+    """
+    symbol = setup_resources["symbol"]
+    value = symbol.add_entry("LOOP", 15)
+    print(value)
+    print(SymbolTable.symbol_table)
+    assert value == str(15)
+
+
+def test_add_entry_already_in_table(setup_resources):
+    """
+    Tests that we can add an entry to the table
+    """
+    symbol = setup_resources["symbol"]
+    symbol.add_entry("add")
+    symbol.add_entry("sub")
+    symbol.add_entry("div")
+    assert SymbolTable.symbol_table.get("add") == "16"
+    assert SymbolTable.symbol_table.get("sub") == "17"
+    assert SymbolTable.symbol_table.get("div") == "18"
+
+    symbol.add_entry("add")
+    symbol.add_entry("sub")
+    symbol.add_entry("div")
+
+    assert SymbolTable.symbol_table.get("add") == "16"
+    assert SymbolTable.symbol_table.get("sub") == "17"
+    assert SymbolTable.symbol_table.get("div") == "18"
