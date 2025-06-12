@@ -100,7 +100,7 @@ def write_to_file(file_name: str, translated_file: list[str]):
     """
     Writes a translated list to a file, line by line.
     """
-    with open(f"output/{file_name}.hack", "w", encoding="utf-8") as file:
+    with open(f"output/{file_name}.hack", "w") as file:
         file.writelines(f"{line}\n" for line in translated_file)
 
 
@@ -121,12 +121,14 @@ def main():
 
     open_file = read_file(file_path)
 
-    print(f"Translating file...")
+    print(f"Translating file...\n")
 
     run_first_loop(open_file)
     translated_file = run_second_loop(open_file)
+    print(f"Stripping translated file of any whitespace...\n")
+    translated_file = [line.strip() for line in translated_file]
 
-    print(f"Translation complete!")
+    print(f"Translation complete!\n")
     print("------------BINARY LIST------------")
     print(translated_file)
 
