@@ -72,8 +72,8 @@ def run_second_loop(lines: list[str]):
         if parser.is_a_command(line):
             lines[index] = parser.remove_symbol(line)
             print(f"[A command found]: Old value: {line} | New value: {lines[index]}")
-            lines[index] = symbol_table.get_address(lines[index])
-            lines[index] = str(bin(int(lines[index]))[2:].zfill(16))
+            if line.isdigit():
+                lines[index] = str(bin(int(lines[index]))[2:].zfill(16))
             print(f"{lines[index]} added to list\n")
         if parser.is_c_command(line):
             dest = parser.get_dest(line)
