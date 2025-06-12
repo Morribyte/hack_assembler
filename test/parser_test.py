@@ -203,3 +203,12 @@ def test_clean_line(setup_resources):
     parser = setup_resources["parser"]
     cleaned_line = parser.clean_line(line)
     print(cleaned_line)
+
+
+def test_l_command(setup_resources):
+    """
+    Test that we can read "L" commands properly
+    """
+    parser = setup_resources["parser"]
+    assert parser.is_l_command("(LOOP)")
+    assert not parser.is_l_command("@LOOP")

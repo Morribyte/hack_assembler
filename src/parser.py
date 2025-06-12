@@ -75,6 +75,13 @@ class Parser:
         """
         return "=" in command or ";" in command
 
+    def is_l_command(self, command: str) -> bool:
+        """
+        checks for an L command.
+        command -> string - a line of assembly code
+        """
+        return command.startswith("(")
+
     def clean_line(self, command: str) -> str | None:
         """
         Cleans a line of whitespace and comments. Returns None if the line is only a comment.

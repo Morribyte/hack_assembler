@@ -44,6 +44,8 @@ def run_first_loop(lines: list[str]):
     print(f"Program counter: {SymbolTable.program_counter}")
     for index, line in enumerate(lines):
         print(line)
+        if parser.is_l_command(line):
+            print("L command found.")
 
         symbol_table.increment_pc()
         print(f"PC: {SymbolTable.program_counter}")
