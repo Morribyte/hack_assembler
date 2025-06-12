@@ -26,6 +26,7 @@ def get_file():
 def read_file(file_path):
     with open(file_path, "r") as file:
         lines: list[str] = [line.split("//")[0].rstrip() for line in file.readlines() if line.split("//")[0].strip()]
+    lines = [line.strip() for line in lines]
     print(lines)
     return lines
 
@@ -41,33 +42,39 @@ def run_first_loop(lines: list[str]):
         When this happens, the symbol table converts it to the number of the next machine instruction.
         For example, if one line is (LOOP) and the next is @R2, then the loop should be replaced wit
     """
+    print("------------STARTING FIRST PASS------------\n")
+
     print(f"Program counter: {SymbolTable.program_counter}")
+    print("Checking for L Command...")
+
     for index, line in enumerate(lines):
-        print(line)
         if parser.is_l_command(line):
             print("L command found.")
             extracted_label: str = parser.extract_label(line)
             print(f"Extracted label: {extracted_label}")
             print(f"Address for symbol table: {SymbolTable.program_counter}")
-            symbol_table.add_entry()
+            symbol_table.add_entry(extracted_label, SymbolTable.program_counter)
+            del lines[index]
         symbol_table.increment_pc()
-
-        print(f"PC: {SymbolTable.program_counter}")
-    print(lines)
-    print(SymbolTable.symbol_table)
-
+        print(f"Current PC: {SymbolTable.program_counter}")
+    print("\n-----------FINAL LIST------------")
+    print(f"{lines}\n")
+    print("-----------SYMBOL TABLE------------")
+    print(f"{SymbolTable.symbol_table}\n")
 
 
 def run_second_loop(lines: list[str]):
     """
     Finally translates everything to binary code.
     """
+    print("------------STARTING SECOND PASS------------")
     for index, line in enumerate(lines):
         if parser.is_a_command(line):
             lines[index] = parser.remove_symbol(line)
             print(f"[A command found]: Old value: {line} | New value: {lines[index]}")
+            lines[index] = symbol_table.get_address(lines[index])
             lines[index] = str(bin(int(lines[index]))[2:].zfill(16))
-            print(f"{lines[index]} added to list")
+            print(f"{lines[index]} added to list\n")
         if parser.is_c_command(line):
             dest = parser.get_dest(line)
             comp = parser.get_comp(line)
@@ -82,9 +89,10 @@ def run_second_loop(lines: list[str]):
 
             # Use hard-coded value 111 since the first three bits in a c-instruction will always be 1.
             translated_instruction = "111" + convert_comp + convert_dest + convert_jump
-            print(f"Translated instruction {translated_instruction} added to list")
+            print(f"Translated instruction {translated_instruction} added to list\n")
 
             lines[index] = translated_instruction
+
     return lines
 
 
@@ -116,12 +124,13 @@ def main():
     print(f"Translating file...")
 
     run_first_loop(open_file)
-    # translated_file = run_second_loop(open_file)
+    translated_file = run_second_loop(open_file)
 
-    # print(f"Translation complete!")
-    # print(translated_file)
-    #
-    # write_to_file(file_name, translated_file)
+    print(f"Translation complete!")
+    print("------------BINARY LIST------------")
+    print(translated_file)
+
+    write_to_file(file_name, translated_file)
 
 if __name__ == "__main__":
     main()
