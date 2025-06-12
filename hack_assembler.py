@@ -10,6 +10,7 @@ from src.symbol_table import SymbolTable
 
 parser = Parser()
 translator = Translator()
+symbol_table = SymbolTable()
 
 def get_file():
     """
@@ -40,9 +41,12 @@ def run_first_loop(lines: list[str]):
         When this happens, the symbol table converts it to the number of the next machine instruction.
         For example, if one line is (LOOP) and the next is @R2, then the loop should be replaced wit
     """
+    print(f"Program counter: {SymbolTable.program_counter}")
     for index, line in enumerate(lines):
         print(line)
 
+        symbol_table.increment_pc()
+        print(f"PC: {SymbolTable.program_counter}")
 
 
 
