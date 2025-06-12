@@ -17,6 +17,8 @@ class SymbolTable:
     }
     next_available_ram = 16
 
+    program_counter = 0
+
     def __init__(self):
         pass
 
@@ -34,3 +36,9 @@ class SymbolTable:
         Gets an address from the table.
         """
         return SymbolTable.symbol_table.get(symbol)
+
+    def increment_pc(self) -> None:
+        """
+        Increment the program counter.
+        """
+        SymbolTable.program_counter += 1

@@ -32,12 +32,18 @@ def read_file(file_path):
 def run_first_loop(lines: list[str]):
     """
     This loop runs through everything, grabbing symbols and appending them to the symbol table.
-    Specifically, it looks for two things:
+    Specifically, it looks for labels. We use the program counter to keep track of the implicit line for each insturction.
+    When we encounter a label, we take the address of the next program counter and stick it into the symbol table.
+    When the second pass happens, the assembler will know when it encounters (LOOP) to replace it with the instruction
+
     Labels: Starts with a left parenthesis "(". When enclosed with a ")" and there is a word inside it, it is a label.
         When this happens, the symbol table converts it to the number of the next machine instruction.
-        For example, if one line is (LOOP) and the next is @R2, then the loop should be replaced with
-    Variables:
+        For example, if one line is (LOOP) and the next is @R2, then the loop should be replaced wit
     """
+    for index, line in enumerate(lines):
+        print(line)
+
+
 
 
 def run_second_loop(lines: list[str]):
@@ -97,12 +103,13 @@ def main():
 
     print(f"Translating file...")
 
-    translated_file = run_second_loop(open_file)
+    run_first_loop(open_file)
+    # translated_file = run_second_loop(open_file)
 
-    print(f"Translation complete!")
-    print(translated_file)
-
-    write_to_file(file_name, translated_file)
+    # print(f"Translation complete!")
+    # print(translated_file)
+    #
+    # write_to_file(file_name, translated_file)
 
 if __name__ == "__main__":
     main()

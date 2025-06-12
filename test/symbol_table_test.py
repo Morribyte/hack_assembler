@@ -47,3 +47,28 @@ def test_get_address(setup_resources):
     value = symbol.get_address("SCREEN")
     print(value)
     assert value == "16384"
+
+
+def test_program_counter(setup_resources):
+    """
+    Test that the program counter increments properly when given an instruction
+    """
+    symbol = setup_resources["symbol"]
+    assert SymbolTable.program_counter == 0
+
+    symbol.increment_pc()
+    assert SymbolTable.program_counter == 1
+
+
+def test_automated_incrementing(setup_resources):
+    """
+    Test that our program counter increments properly to large numbers
+    """
+    symbol = setup_resources["symbol"]
+    SymbolTable.program_counter = 0
+
+    for _ in range (30000):
+        symbol.increment_pc()
+        if SymbolTable.program_counter % 1000 == 0:
+            print(f"Program counter: {SymbolTable.program_counter}")
+    assert SymbolTable.program_counter == 30000
