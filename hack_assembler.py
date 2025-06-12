@@ -6,6 +6,7 @@ from pathlib import Path
 
 from src.parser import Parser
 from src.translator import Translator
+from src.symbol_table import SymbolTable
 
 parser = Parser()
 translator = Translator()
@@ -30,8 +31,9 @@ def read_file(file_path):
 
 def run_first_loop(lines: list[str]):
     """
-
+    This loop runs through everything, grabbing symbols and appending them to the symbol table.
     """
+
 
 
 def run_second_loop(lines: list[str]):
