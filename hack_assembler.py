@@ -32,8 +32,12 @@ def read_file(file_path):
 def run_first_loop(lines: list[str]):
     """
     This loop runs through everything, grabbing symbols and appending them to the symbol table.
+    Specifically, it looks for two things:
+    Labels: Starts with a left parenthesis "(". When enclosed with a ")" and there is a word inside it, it is a label.
+        When this happens, the symbol table converts it to the number of the next machine instruction.
+        For example, if one line is (LOOP) and the next is @R2, then the loop should be replaced with
+    Variables:
     """
-
 
 
 def run_second_loop(lines: list[str]):
