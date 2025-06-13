@@ -17,7 +17,8 @@ class Translator:
             "A": "100", "AM": "101", "AD": "110", "AMD": "111",
         }
         self.comp: dict = {
-            # Comp is usually 6 bits, but since you can add the 7th bit and use 0 or 1, it makes sense to put them here
+            # Comp is usually 6 bits, but since the 7th bit is a switch between using an "M" instruction or not, it makes
+            # sense to put the 7th bits here instead of as a separate dict.
 
             # A-bit = 0
             "0": "0101010", "1": "0111111", "-1": "0111010",

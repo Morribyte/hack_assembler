@@ -12,16 +12,6 @@ class Parser:
     """
     Represents an assembler parser object
     """
-    def __init__(self):
-        self.current_line: int = 0
-
-    def advance(self):
-        """
-        Advances the self.current_line count by 1.
-        """
-        self.current_line = self.current_line + 1
-
-
     def get_dest(self, command: str) -> str:
         """
         takes a C command and retrieves the dest if it's there.
